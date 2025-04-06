@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Verificação de Velocidade e Nacionalidade</title>
+    <style>
+        body {
+            font: normal 20px Arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Multa</h1>
+    Velocidade do carro: <input type="number" name="txtvel" id="txtvel"> Km/h
+    <input type="button" value="Verificar" onclick="calcular()">
+    <div id="resul"></div> <!-- Aqui você muda para "resul" para não haver conflito -->
+
+    <h1>Brasileiro ou Estrangeiro?</h1>
+    De onde você está? <input type="text" name="txtpais" id="txtpais">
+    <input type="button" value="Verificar" onclick="verificar()">
+    <div id="res"></div> <!-- Aqui mantemos o ID "res" -->
+    
+    <script>
+        // Função que verifica se o usuário está em excesso de velocidade
+        function calcular() {
+            var txtv = window.document.querySelector('input#txtvel');
+            var res = window.document.querySelector('div#resul'); // Atualiza para "resul"
+            var vel = Number(txtv.value);
+            res.innerHTML = `<p>Sua velocidade atual é de <strong>${vel} km/h.</strong></p>`; // Corrigido para apenas "vel"
+            if (vel > 60) {
+                res.innerHTML += `<p>Você está <strong>MULTADO</strong> por excesso de velocidade.</p>`;
+            }
+            res.innerHTML += '<p>Dirija sempre com cinto de segurança!</p>';
+        }
+
+        // Função que verifica se o usuário é brasileiro ou estrangeiro
+        function verificar() {
+            var txtp = window.document.querySelector('input#txtpais');
+            var res = window.document.getElementById('res');
+            var pais = String(txtp.value).trim(); // Adicionando trim() para remover espaços extras
+            res.innerHTML = `<p>Vivendo em <strong>${pais}</strong>.</p>`;
+            if (pais.toLowerCase() === 'brasil') { // Torna a comparação insensível a maiúsculas/minúsculas
+                res.innerHTML += '<p>Você é Brasileiro!</p>';
+            } else {
+                res.innerHTML += '<p>Você é Estrangeiro!</p>';
+            }
+        }
+    </script>
+</body>
+</html>
